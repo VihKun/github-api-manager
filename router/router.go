@@ -3,26 +3,16 @@ package router
 import (
 	"fmt"
 	"os"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	// Used for calculating uptime
-	start = time.Now()
-)
-
 func Init() {
+	// Initialize Router
 	r := gin.Default()
 
-	// Health check endpoint
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"status": "OK",
-			"uptime": time.Since(start).String(),
-		})
-	})
+	// Initialize Routes
+	initRoutes(r)
 
 	// Run API Server
 	if err := r.Run(); err != nil {
