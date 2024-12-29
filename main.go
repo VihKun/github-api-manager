@@ -1,18 +1,9 @@
 package main
 
-import (
-	"github.com/gin-gonic/gin"
-)
+import "github.com/VihKun/github-api-manager/router"
 
 func main() {
-	r := gin.Default()
 
-	// Health check endpoint
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"status": "OK",
-		})
-	})
+	router.Init()
 
-	r.Run() // Run on localhost:8080 by default
 }
