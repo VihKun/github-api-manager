@@ -1,7 +1,9 @@
 package router
 
 import (
+	"context"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/VihKun/github-api-manager/client"
@@ -22,9 +24,27 @@ func initRoutes(r *gin.Engine, ghClient *client.GitHubClient) {
 	{
 		// Health check endpoint
 		v1.GET("/health", func(c *gin.Context) {
+			status := "OK"
+			uptime := time.Since(start).String()
+
+			user, _, err := ghClient.Client.Users.Get(context.Background(), "")
+
+			if err != nil {
+				status = "ERROR"
+				c.JSON(http.StatusInternalServerError, gin.H{
+					"status":  status,
+					"uptime":  uptime,
+					"message": "GitHub API is down",
+					"error":   err.Error(),
+				})
+				os.Exit(1)
+			}
+
 			c.JSON(http.StatusOK, gin.H{
-				"status": "OK",
-				"uptime": time.Since(start).String(),
+				"status":  status,
+				"uptime":  uptime,
+				"message": "Service Running",
+				"user":    user.GetLogin(),
 			})
 		})
 

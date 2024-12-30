@@ -14,15 +14,15 @@ const (
 )
 
 type GitHubClient struct {
-	client *github.Client
-	c      context.Context
+	Client *github.Client
+	C      context.Context
 }
 
 // Initializes a new GitHub client using an OAuth Token
 func InitClient() (*GitHubClient, error) {
 	token := os.Getenv(GitHubTokenEnv)
 	if token == "" {
-		return nil, fmt.Errorf("environment variable not set: %v\n", GitHubTokenEnv)
+		return nil, fmt.Errorf("environment variable not set: %v", GitHubTokenEnv)
 	}
 
 	c := context.Background()
@@ -32,7 +32,7 @@ func InitClient() (*GitHubClient, error) {
 	tc := oauth2.NewClient(c, ts)
 
 	return &GitHubClient{
-		client: github.NewClient(tc),
-		c:      c,
+		Client: github.NewClient(tc),
+		C:      c,
 	}, nil
 }
