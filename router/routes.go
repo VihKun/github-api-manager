@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/VihKun/github-api-manager/client"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +17,7 @@ var (
 	start = time.Now()
 )
 
-func initRoutes(r *gin.Engine) {
+func initRoutes(r *gin.Engine, ghClient *client.GitHubClient) {
 	v1 := r.Group(basePath)
 	{
 		// Health check endpoint
