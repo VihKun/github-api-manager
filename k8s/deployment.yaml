@@ -15,6 +15,7 @@ spec:
       containers:
       - name: github-api-manager
         image: github-api-manager:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         env:
