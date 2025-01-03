@@ -80,6 +80,8 @@ func ListReposHandler(c *gin.Context) {
 }
 
 /*
+--------------Structure of request body--------------
+
 	{
 	  "name": "name_of_repo",
 	  "description": "description_of_repo",

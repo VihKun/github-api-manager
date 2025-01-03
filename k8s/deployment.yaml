@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-api-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-api-manager
+  template:
+    metadata:
+      labels:
+        app: github-api-manager
+    spec:
+      containers:
+      - name: github-api-manager
+        image: github-api-manager:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-token-secret
+              key: GITHUB_TOKEN
