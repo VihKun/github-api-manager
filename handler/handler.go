@@ -31,13 +31,13 @@ func Init() {
 }
 
 func HealthCheckHandler(c *gin.Context) {
-	status := "OK"
+	status := "OK!"
 	uptime := time.Since(start).String()
 
 	user, _, err := ghClient.Client.Users.Get(context.Background(), "")
 
 	if err != nil {
-		status = "ERROR"
+		status = "ERROR!"
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status":  status,
 			"uptime":  uptime,
