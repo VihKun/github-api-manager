@@ -31,6 +31,8 @@ jobs:
 
       # Run tests
       - name: Run tests
+        env:
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: go test ./...
 
       # Run linters
