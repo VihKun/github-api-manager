@@ -64,7 +64,7 @@ jobs:
       # Deploy to Minikube
       - name: Deploy to Kubernetes (Minikube)
         run: |
-          kubectl apply -f kubernetes/deployment.yaml
+          kubectl apply -f k8s/deployment.yaml
           kubectl set image deployment/github-api-manager github-api-manager=${{ secrets.DOCKER_USERNAME }}/github-api-manager:latest
           kubectl rollout status deployment/github-api-manager
         env:
