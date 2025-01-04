@@ -35,7 +35,7 @@ Make sure that Go 1.23.4 is installed. You can download it from [Go's official w
 
 ### 3. Install dependencies
 
-Run the following command to install the dependencies:
+Run the following commands to install the dependencies:
 
 ```bash
 go mod tidy
@@ -87,7 +87,7 @@ You can expose the API service using the following command:
 kubectl port-forward deployment/github-api-manager 8080:8080
 ```
 
-This will forward the service to localhost:8080.
+In this example, it will forward the service to localhost:8080.
 
 ## API Endpoints
 
@@ -163,6 +163,8 @@ To run linters:
 ```bash
 golint ./...
 ```
+
+(**golint needs to be installed**)
 
 ## CI/CD Pipeline
 
