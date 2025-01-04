@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	GitHubTokenEnv = "GITHUB_TOKEN"
+	GitHubTokenEnv = "GIT_TOKEN"
 )
 
 type GitHubClient struct {

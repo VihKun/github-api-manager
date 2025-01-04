@@ -19,8 +19,8 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: GITHUB_TOKEN
+        - name: GIT_TOKEN
           valueFrom:
             secretKeyRef:
               name: github-token-secret
-              key: GITHUB_TOKEN
+              key: GIT_TOKEN

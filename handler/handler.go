@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -57,6 +58,7 @@ func HealthCheckHandler(c *gin.Context) {
 func ListReposHandler(c *gin.Context) {
 	// Check if client is initialized
 	if ghClient == nil {
+		log.Println("Error initializing GitHub client")
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "GitHub client is not initialized"})
 		return
 	}
@@ -64,6 +66,7 @@ func ListReposHandler(c *gin.Context) {
 	// Fetch username
 	user, _, err := ghClient.Client.Users.Get(c, "")
 	if err != nil {
+		log.Println("Error fetching username:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -71,6 +74,7 @@ func ListReposHandler(c *gin.Context) {
 	// List the repositories
 	repos, _, err := ghClient.Client.Repositories.List(c, *user.Login, nil)
 	if err != nil {
+		log.Println("Error fetching repositories:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -92,6 +96,7 @@ func CreateRepoHandler(c *gin.Context) {
 	// Parse the request body to get the repo details
 	var repo github.Repository
 	if err := c.ShouldBindJSON(&repo); err != nil {
+		log.Println("Bad request:", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return
 	}
@@ -99,12 +104,13 @@ func CreateRepoHandler(c *gin.Context) {
 	// Create the repo using the GitHub API client
 	createdRepo, _, err := ghClient.Client.Repositories.Create(context.Background(), "", &repo)
 	if err != nil {
+		log.Println("Failed to create repo:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Failed to create repository: %v", err)})
 		return
 	}
 
 	// Return the created repo
-	c.JSON(http.StatusOK, createdRepo)
+	c.JSON(http.StatusCreated, createdRepo)
 }
 
 func DeleteRepoHandler(c *gin.Context) {
