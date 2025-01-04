@@ -62,10 +62,17 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/github-api-manager:latest
 
       # Deploy to Minikube
+      - name: Set KUBECONFIG
+        run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+
+      - name: Verify kubectl config
+        run: kubectl config view
+              
+      - name: Verify kubectl connection to Minikube
+        run: kubectl cluster-info
+
       - name: Deploy to Kubernetes (Minikube)
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl set image deployment/github-api-manager github-api-manager=${{ secrets.DOCKER_USERNAME }}/github-api-manager:latest
           kubectl rollout status deployment/github-api-manager
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
