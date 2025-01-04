@@ -77,6 +77,7 @@ Once Minikube is running, apply the Kubernetes configurations for deployment:
 
 ```bash
 kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
 ```
 
 ### 8. Expose the API
