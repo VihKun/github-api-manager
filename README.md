@@ -18,7 +18,7 @@ Before running this project locally or deploying it, ensure you have the followi
 - **Docker**: Required for building and pushing the Docker image to a container registry.
 - **Minikube**: For local Kubernetes clusters (used for deploying the application).
 - **kubectl**: The Kubernetes command-line tool to interact with your cluster.
-- **GitHub Access Token (GITHUB_TOKEN)**: Required to authenticate with the GitHub API.
+- **GitHub Access Token (GIT_TOKEN)**: Required to authenticate with the GitHub API.
 
 ## Installation
 
